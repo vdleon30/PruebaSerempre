@@ -47,10 +47,11 @@ class InitProyect extends Command
             }
         }
         $bar = $this->output->createProgressBar($number*2+50);
-        $this->info("¡Procederemos a relaizar los {$number} registros! Por favor sea paciente");
+        $this->info("¡Procederemos a realizar los {$number} registros! Por favor sea paciente");
 
         $bar->start();
         \Artisan::call("migrate:refresh --seed");
+        \Artisan::call('vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravelRecent"');
         $bar->advance(30);
         for ($i=1; $i < 20; $i++) { 
             \App\Models\City::factory(1)->create();
@@ -70,8 +71,8 @@ class InitProyect extends Command
         $this->newLine();
         $this->info('¡Ya puede ingresar al sistema con las siguentes credenciales mail:user@user.com pass:test1234!');
         $this->newLine();
-        $this->info('Usuario Administrador - mail:admin@admin.com pass:admin1234!');
-        $this->info('Usuario Normal - mail:user@user.com pass:test1234!');
+        $this->info('Usuario Administrador - mail:admin@admin.com pass:admin1234');
+        $this->info('Usuario Normal - mail:user@user.com pass:test1234');
 
     }
 }
